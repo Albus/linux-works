@@ -1,4 +1,4 @@
-FROM i386/ubuntu:latest
+FROM ubuntu:xenial
 ENV DEBIAN_FRONTEND noninteractive
 ENV NOTVISIBLE "in users profile"
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
