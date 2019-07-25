@@ -10,7 +10,7 @@ RUN . /etc/lsb-release \
 && mkdir -p /etc/postgresql-common/createcluster.d \
 && echo create_main_cluster = true >> /etc/postgresql-common/createcluster.d/settings.conf \
 && echo initdb_options = "-k" >> /etc/postgresql-common/createcluster.d/settings.conf \
-&& tar xjfC /deb -f /deb/postgresql_10.5_24.1C_amd64_deb.tar.bz2 \
+&& tar -xf /deb/postgresql_10.5_24.1C_amd64_deb.tar.bz2 -C /deb \
 && dpkg -i /deb/*.deb 2>/dev/null || exit 0
 
 RUN apt-mark hold `find /deb -iname "*\.deb" -exec dpkg-deb --field {} package \; | xargs` \
