@@ -1,4 +1,4 @@
-FROM albus/ubuntu:x64ru
+FROM albus/linux-works:ubuntu_latest_x64ru
 EXPOSE 1550/tcp
 WORKDIR /opt/1C
 ENV PATH=/opt/1C:$PATH
