@@ -1,4 +1,4 @@
-FROM albus/ubuntu:x64ru
+FROM albus/linux-works:ubuntu_latest_x64ru
 
 RUN	echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections \
 	&& apt-get update \

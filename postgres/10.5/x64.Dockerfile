@@ -1,4 +1,4 @@
-FROM albus/ubuntu:xenial64ru
+FROM albus/linux-works:ubuntu_xenial_x64ru
 
 ADD https://github.com/Albus/linux-works/raw/master/postgres/10.5/postgresql_10.5_24.1C_amd64_deb.tar.bz2 /deb/
 
