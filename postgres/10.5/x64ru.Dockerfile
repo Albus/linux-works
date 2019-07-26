@@ -11,10 +11,10 @@ RUN . /etc/lsb-release \
 && echo create_main_cluster = true >> /etc/postgresql-common/createcluster.d/settings.conf \
 && echo initdb_options = "-k" >> /etc/postgresql-common/createcluster.d/settings.conf \
 && tar -xf /deb/postgresql_10.5_24.1C_amd64_deb.tar.bz2 -C /deb \
-&& dpkg -i /deb/*.deb 2>/dev/null || exit 0
+&& dpkg -i /deb/postgresql_10.5_24.1C_amd64_deb/*.deb 2>/dev/null || exit 0
 
 RUN apt-mark hold `find /deb -iname "*\.deb" -exec dpkg-deb --field {} package \; | xargs` \
-&& apt-get update && apt-get install -f -y
+&& apt-get update && apt-get install -f -y && rm -rf /deb
 
 ENV PATH=$PATH:/usr/lib/postgresql/10/bin/ PGDATA=/var/lib/postgresql/10/main
 EXPOSE 5432/tcp
