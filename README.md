@@ -12,3 +12,9 @@ docker run --name dbgs \
 --net host --restart always --hostname dbgs \
 -d ubuntu /opt/1C/dbgs --addr=0.0.0.0
 ```
+## postgresql
+```sh
+docker run --name postgres --hostname postgres --restart always --net host \
+-v `docker volume inspect postgresql_data | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main \
+albus/linux-works:postgres_10.5_x64
+```
