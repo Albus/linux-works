@@ -8,7 +8,7 @@ ADD https://raw.githubusercontent.com/Albus/linux-works/master/postgres/10.5/pos
 WORKDIR /deb
 
 RUN apt-key add ACCC4CF8.asc && apt-get update \
-&& apt-get install gnupg2 bzip2 --no-install-recommends -y -qq \
+&& apt-get install bzip2 --no-install-recommends -y -qq \
 && tar -v -xf postgresql_10.5_24.1C_amd64_deb.tar.bz2
 
 RUN dpkg -R -i * 2>/dev/null || exit 0
