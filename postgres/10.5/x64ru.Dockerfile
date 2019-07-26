@@ -13,7 +13,7 @@ RUN . /etc/lsb-release \
 && tar -xf /deb/postgresql_10.5_24.1C_amd64_deb.tar.bz2 -C /deb \
 && dpkg -i /deb/postgresql_10.5_24.1C_amd64_deb/*.deb 2>/dev/null || exit 0
 
-RUN apt-mark hold `find /deb -iname "*\.deb" -exec dpkg-deb --field {} package \; | xargs` \
+RUN apt-mark hold `find /deb -iname "*\.deb" -R -exec dpkg-deb --field {} package \; | xargs` \
 && apt-get update && apt-get install -f -y && rm -rf /deb
 
 ENV PATH=$PATH:/usr/lib/postgresql/10/bin/ PGDATA=/var/lib/postgresql/10/main
