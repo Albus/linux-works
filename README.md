@@ -17,5 +17,5 @@ docker run --name dbgs \
 docker volume create postgresql_data
 docker run --name postgres --hostname postgres --restart always --net host \
 -v `docker volume inspect postgresql_data | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main \
-albus/linux-works:postgres_10.5_x64
+-d albus/linux-works:postgres_10.5_x64
 ```
