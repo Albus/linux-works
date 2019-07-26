@@ -1,20 +1,23 @@
 FROM albus/linux-works:ubuntu_xenial_x64ru
 
 ADD https://github.com/Albus/linux-works/raw/master/postgres/10.5/postgresql_10.5_24.1C_amd64_deb.tar.bz2 /deb/
+ADD https://raw.githubusercontent.com/Albus/linux-works/master/postgres/10.5/postgresql.list /etc/apt/sources.list.d/
+ADD https://www.postgresql.org/media/keys/ACCC4CF8.asc /deb/
+ADD https://raw.githubusercontent.com/Albus/linux-works/master/postgres/10.5/postgresql-common.conf /etc/postgresql-common/createcluster.d/
 
-RUN . /etc/lsb-release \
-&& apt-get update \
-&& apt-get install gnupg2 --no-install-recommends \
-&& echo deb http://apt.postgresql.org/pub/repos/apt/ $DISTRIB_CODENAME-pgdg main > /etc/apt/sources.list.d/postgresql.list \
-&& wget -q -O - http://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-&& mkdir -p /etc/postgresql-common/createcluster.d \
-&& echo create_main_cluster = true >> /etc/postgresql-common/createcluster.d/settings.conf \
-&& echo initdb_options = "-k" >> /etc/postgresql-common/createcluster.d/settings.conf \
-&& tar -xf /deb/postgresql_10.5_24.1C_amd64_deb.tar.bz2 -C /deb \
-&& dpkg -i /deb/postgresql_10.5_24.1C_amd64_deb/*.deb 2>/dev/null || exit 0
+WORKDIR /deb
 
-RUN apt-mark hold `find /deb -iname "*\.deb" -R -exec dpkg-deb --field {} package \; | xargs` \
-&& apt-get update && apt-get install -f -y && rm -rf /deb
+RUN apt-key add ACCC4CF8.asc && apt-get update \
+&& apt-get install gnupg2 bzip2 --no-install-recommends -y -qq \
+&& tar -v -xf postgresql_10.5_24.1C_amd64_deb.tar.bz2
+
+RUN dpkg -R -i * 2>/dev/null || exit 0
+
+RUN apt-mark hold `find . -iname "*\.deb" -exec dpkg-deb --field {} package \; | xargs` \
+&& apt-get update -qq \
+&& apt-get install -f -y -qq \
+&& apt-get clean && rm -rf /var/lib/apt/lists/* \
+&& rm -rf /deb
 
 ENV PATH=$PATH:/usr/lib/postgresql/10/bin/ PGDATA=/var/lib/postgresql/10/main
 EXPOSE 5432/tcp
