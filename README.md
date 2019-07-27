@@ -37,6 +37,6 @@ docker run --name postgres --hostname postgres --restart always --net host \
 ## ras
 ```sh
 docker run --name ras --hostname ras \
--v /var/lib/docker/volumes/1c-server/_data/v8.3.13.1644/x86_64:/opt/1C:ro --net host --restart always \
--d ubuntu /opt/1C/ras cluster --port=1545
+-v /var/lib/docker/volumes/1c-server/_data/v8.3.13.1644/x86_64:/opt/1C:ro \
+--net host --restart always -d ubuntu /opt/1C/ras cluster --port=1545
 ```
