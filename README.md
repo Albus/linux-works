@@ -33,3 +33,10 @@ docker run --name postgres --hostname postgres --restart always --net host \
 -v `docker volume inspect postgresql_data | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main \
 -d albus/linux-works:postgres_10.5_x64
 ```
+
+## ras
+```sh
+docker run --name ras --hostname ras \
+-v /var/lib/docker/volumes/1c-server/_data/v8.3.13.1644/x86_64:/opt/1C:ro --net host --restart always \
+-d ubuntu /opt/1C/ras cluster --port=1545
+```
