@@ -6,4 +6,4 @@ EXPOSE 80/tcp
 
 VOLUME ["/opt/1C"]
 
-RUN ["/usr/sbin/apachectl","-DFOREGROUND"]
+CMD ["/usr/sbin/apachectl","-DFOREGROUND"]
