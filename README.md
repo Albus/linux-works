@@ -3,7 +3,8 @@
 docker volume create 1c-server
 docker volume create 1c-server_data
 # распаковываем дистрибутив в каталог /var/lib/docker/volumes/1c-server/_data/v8.3.13.1644/i386
-
+```
+```sh
 docker run --name esina_x32ru -h esina -d \
 -v `docker volume inspect 1c-server | jq -r ".[].Mountpoint"`/v8.3.13.1644/i386:/opt/1C:ro \
 -v `docker volume inspect 1c-server_data | jq -r ".[].Mountpoint"`:/root/.1cv8/1C/1cv8:Z \
@@ -24,7 +25,8 @@ docker run --name crserver \
 ```sh
 docker volume create 1c-server
 # распаковываем дистрибутив в каталог /var/lib/docker/volumes/1c-server/_data/v8.3.13.1644/x86_64
-
+```
+```sh
 docker run --name dbgs \
 -v `docker volume inspect 1c-server | jq -r ".[].Mountpoint"`/v8.3.13.1644/x86_64:/opt/1C:ro \
 --net host --restart always --hostname dbgs \
@@ -34,6 +36,8 @@ docker run --name dbgs \
 ## postgresql
 ```sh
 docker volume create postgresql_data
+```
+```sh
 docker run --name postgres --hostname postgres --restart always --net host \
 -v `docker volume inspect postgresql_data | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main:Z \
 -d albus/linux-works:postgres_10.5_x64
@@ -43,7 +47,8 @@ docker run --name postgres --hostname postgres --restart always --net host \
 ```sh
 docker volume create 1c-server
 # распаковываем дистрибутив в каталог /var/lib/docker/volumes/1c-server/_data/v8.3.13.1644/x86_64
-
+```
+```sh
 docker run --name ras --hostname ras \
 -v `docker volume inspect 1c-server | jq -r ".[].Mountpoint"`/v8.3.13.1644/x86_64:/opt/1C:ro \
 --net host --restart always -d ubuntu /opt/1C/ras cluster --port=1545
