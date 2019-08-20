@@ -7,4 +7,4 @@ copy --from=alpine /index.html /www/index.html
 volume /ssl
 env CADDYPATH=/ssl
 workdir /
-cmd ["/caddy","-agree","-env"]
+cmd ["/caddy","-agree","-env","-root /www"]
