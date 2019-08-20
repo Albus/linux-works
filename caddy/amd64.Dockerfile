@@ -6,4 +6,4 @@ copy --from=alpine /caddy /caddy
 volume /ssl
 env CADDYPATH=/ssl
 workdir /
-cmd ["/caddy","-agree","-env","-root /www"]
+cmd ["/caddy","-agree","-env"]
