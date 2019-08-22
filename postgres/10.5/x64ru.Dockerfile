@@ -17,7 +17,7 @@ RUN apt-mark hold `find . -iname "*\.deb" -exec dpkg-deb --field {} package \; |
 && apt-get update -qq \
 && apt-get install -f -y -qq \
 && apt-get clean && rm -rf /var/lib/apt/lists/* \
-&& rm -rf /deb
+&& rm -rf /deb \
 && chown postgres:postgres -R $PGDATA
 
 EXPOSE 5432/tcp
