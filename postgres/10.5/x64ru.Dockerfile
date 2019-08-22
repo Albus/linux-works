@@ -24,6 +24,6 @@ EXPOSE 5432/tcp
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 --start-period=5s CMD ["pg_isready"]
 STOPSIGNAL SIGSTOP
 WORKDIR $PGDATA
-USER postgres
+#USER postgres
 CMD ["pg_ctlcluster","--foreground","10","main","start"]
 VOLUME $PGDATA
