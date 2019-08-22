@@ -12,18 +12,18 @@ RUN apt-key add ACCC4CF8.asc && apt-get update \
 && tar -v -xf postgresql_10.5_24.1C_amd64_deb.tar.bz2
 
 RUN dpkg -R -i * 2>/dev/null || exit 0
-
+ENV PATH=$PATH:/usr/lib/postgresql/10/bin/ PGDATA=/var/lib/postgresql/10/main
 RUN apt-mark hold `find . -iname "*\.deb" -exec dpkg-deb --field {} package \; | xargs` \
 && apt-get update -qq \
 && apt-get install -f -y -qq \
 && apt-get clean && rm -rf /var/lib/apt/lists/* \
 && rm -rf /deb
+&& chown postgres:postgres -R $PGDATA
 
-ENV PATH=$PATH:/usr/lib/postgresql/10/bin/ PGDATA=/var/lib/postgresql/10/main
 EXPOSE 5432/tcp
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 --start-period=5s CMD ["pg_isready"]
 STOPSIGNAL SIGSTOP
 WORKDIR $PGDATA
-#USER postgres
+USER postgres
 CMD ["pg_ctlcluster","--foreground","10","main","start"]
 VOLUME $PGDATA
