@@ -35,11 +35,17 @@ docker run --name dbgs \
 
 ## postgresql
 ```sh
+# корень кластера
 docker volume create postgresql_main
+# табличное пространство pg_default
 docker volume create postgresql_rows
+# табличное пространство pg_global
 docker volume create postgresql_glob
+# табличное пространство для индексов (задел на будущее)
 docker volume create postgresql_indx
+# каталог хранения журналов предзаписи
 docker volume create postgresql_wal
+# каталог с настройками кластера
 docker volume create postgresql_etc
 ```
 ```sh
