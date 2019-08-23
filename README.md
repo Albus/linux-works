@@ -35,11 +35,21 @@ docker run --name dbgs \
 
 ## postgresql
 ```sh
-docker volume create postgresql_data
+docker volume create postgresql_main
+docker volume create postgresql_rows
+docker volume create postgresql_glob
+docker volume create postgresql_indx
+docker volume create postgresql_wal
+docker volume create postgresql_etc
 ```
 ```sh
-docker run --name postgres --hostname postgres --restart always --net host \
--v `docker volume inspect postgresql_data | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main:Z \
+docker run --name postgres --hostname postgres --restart always -p 5432:5432 \
+-v `docker volume inspect postgresql_main | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main:Z \
+-v `docker volume inspect postgresql_rows | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main/base:Z \
+-v `docker volume inspect postgresql_glob | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main/global:Z \
+-v `docker volume inspect postgresql_indx | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main/index:Z \
+-v `docker volume inspect postgresql_wal  | jq -r ".[].Mountpoint"`:/var/lib/postgresql/10/main/pg_wal:Z \
+-v `docker volume inspect postgresql_etc  | jq -r ".[].Mountpoint"`:/etc/postgresql/10/main:Z \
 -d albus/linux-works:postgres_10.5_x64
 ```
 
