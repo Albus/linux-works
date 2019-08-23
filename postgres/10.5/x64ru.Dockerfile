@@ -20,22 +20,24 @@ RUN apt-mark hold `find . -iname "*\.deb" -exec dpkg-deb --field {} package \; |
 && apt-get update -qq \
 && apt-get install -f -y -qq \
 && apt-get clean && rm -rf /var/lib/apt/lists/* \
-&& rm -rf /deb \
+&& rm -rf /deb
+
+RUN ln -s /etc/postgresql/10/main $PGDATA/etc \
+&& mkdir -p $PGDATA/index \
 && chown postgres:postgres -R /etc/postgresql \
-&& chown postgres:postgres -R /var/lib/postgresql \
-&& ln -s $PGDATA/etc /etc/postgresql/10/main
-
-VOLUME $PGDATA
-VOLUME $PGDATA/pg_wals
-VOLUME $PGDATA/base
-VOLUME $PGDATA/global
-VOLUME $PGDATA/index
-VOLUME /etc/postgresql/10/main
-
+&& chown postgres:postgres -R /var/lib/postgresql
 
 EXPOSE 5432/tcp
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 --start-period=5s CMD ["pg_isready"]
 STOPSIGNAL SIGSTOP
 WORKDIR $PGDATA
 CMD ["pg_ctlcluster","--foreground","10","main","start"]
+
 USER postgres
+
+VOLUME $PGDATA
+VOLUME $PGDATA/pg_wal
+VOLUME $PGDATA/base
+VOLUME $PGDATA/global
+VOLUME $PGDATA/index
+VOLUME /etc/postgresql/10/main
