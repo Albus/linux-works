@@ -8,6 +8,14 @@ ADD https://www.postgresql.org/media/keys/ACCC4CF8.asc /deb/
 ADD https://raw.githubusercontent.com/Albus/linux-works/master/postgres/10.5/postgresql-common.conf /etc/postgresql-common/createcluster.d/
 ADD https://raw.githubusercontent.com/Albus/linux-works/master/postgres/10.5/tablespaces.conf /etc/postgresql/10/main/conf.d/
 
+
+RUN set -eux; \
+	  groupadd -r postgres --gid=999; \
+	  useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
+	  mkdir -p /var/lib/postgresql; \
+	  chown -R postgres:postgres /var/lib/postgresql
+
+
 WORKDIR /deb
 
 RUN apt-key add ACCC4CF8.asc && apt-get update \
