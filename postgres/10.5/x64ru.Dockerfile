@@ -36,8 +36,4 @@ CMD ["pg_ctlcluster","--foreground","10","main","start"]
 USER postgres
 
 VOLUME $PGDATA
-VOLUME $PGDATA/pg_wal
-VOLUME $PGDATA/base
-VOLUME $PGDATA/global
-VOLUME $PGDATA/index
 VOLUME /etc/postgresql/10/main
