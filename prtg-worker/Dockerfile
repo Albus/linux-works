@@ -9,6 +9,5 @@ RUN echo 'root:toor' | chpasswd \
 && sed -i 's/^.*PermitRootLogin.*$/PermitRootLogin yes/' /etc/ssh/sshd_config \
 && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
 && echo "export VISIBLE=now" >> /etc/profile
-VOLUME /app
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
