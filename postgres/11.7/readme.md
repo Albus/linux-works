@@ -67,3 +67,24 @@ _`initdb`_ удаляет все файлы, которые к тому моме
 
 **`--waldir=каталог`**
 Этот параметр указывает каталог для хранения журнала предзаписи.
+
+---
+
+##### Просмотр информации о созданном кластере
+
+###### Linux
+```commandline 
+docker run --rm -i -t \
+    -v ~/pg/data:/var/lib/postgresql:consistent \
+    -v ~/pg/etc:/etc/postgresql:consistent \
+    pg11 pg_conftool 11 main show all
+```
+
+###### Windows
+```commandline
+docker run --rm -i -t ^
+    -v c:\users\user\Documents\pg\data:/var/lib/postgresql:consistent ^
+    -v c:\users\user\Documents\pg\etc:/etc/postgresql:consistent ^
+    pg11 pg_conftool 11 main show all
+```
+
