@@ -1,6 +1,6 @@
 ##### Создание кластера
 
-######Linux
+###### Linux
 ```commandline 
 docker run --rm -i -t \
     -v ~/pg/data:/var/lib/postgresql:consistent \
@@ -11,7 +11,7 @@ docker run --rm -i -t \
     --allow-group-access --wal-segsize=1 --pwprompt
 ```
 
-######Windows
+###### Windows
 ```commandline
 docker run --rm -i -t ^
     -v c:\users\user\Documents\pg\data:/var/lib/postgresql:consistent ^
