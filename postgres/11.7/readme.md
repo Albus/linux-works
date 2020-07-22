@@ -1,14 +1,30 @@
 ##### Создание кластера
-```shell script
-docker run \
-    -v C:\Users\User\Documents\pg\data\data:/var/lib/postgresql:consistent \
-    -v C:\Users\User\Documents\pg\data\etc:/etc/postgresql:consistent \
-    --rm -it pg11 pg_createcluster --start-conf=disabled 11 main -- \
+
+######Linux
+```commandline 
+docker run --rm -i -t \
+    -v ~/pg/data:/var/lib/postgresql:consistent \
+    -v ~/pg/etc:/etc/postgresql:consistent \
+    pg11 \
+    pg_createcluster --start-conf=disabled 11 main -- \
     --auth-host=password --auth-local=trust --no-clean \
     --allow-group-access --wal-segsize=1 --pwprompt
 ```
+
+######Windows
+```commandline
+docker run --rm -i -t ^
+    -v c:\users\user\Documents\pg\data:/var/lib/postgresql:consistent ^
+    -v c:\users\user\Documents\pg\etc:/etc/postgresql:consistent ^
+    pg11 ^
+    pg_createcluster --start-conf=disabled 11 main -- ^
+    --auth-host=password --auth-local=trust --no-clean ^
+    --allow-group-access --wal-segsize=1 --pwprompt
+```
+
+
 **`--start-conf`**
-_`auto`|`manual`|`disabled`_ - Set automatic startup behaviour in start.conf (default: _`auto`_)
+_`auto`|`manual`|`disabled`_ — Set automatic startup behaviour in start.conf (default: _`auto`_)
 
 **`--no-clean`**
 По умолчанию, при выявлении ошибки на этапе развёртывания кластера,
