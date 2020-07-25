@@ -1,0 +1,30 @@
+mounts: []
+hostname: docker
+domainname: lgss.local
+rancher:
+  console: ubuntu
+  environment:
+    EXTRA_CMDLINE: /init
+  modules:
+  - btrfs
+  services_include:
+    kernel-headers: true
+    Kernel-extras: true
+  state:
+    dev: LABEL=RANCHER_STATE
+    wait: true
+runcmd:
+- swapon -L RANCHER_SWAP
+- mount -L RANCHER_BOOT /boot
+ssh_authorized_keys:
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC09cum+E1Cbd9nhNxQJagO27pdwqFf4D1tLtFPIu0R5gL4h3ML8SOs9dXS9qPwa/rYRKPfWErvFOw/5EXTTdJow65zWVKrlSvbdKpkyM7yX0ImkTWSGaC+RIRJ9D9yajRP2oNQN88ArBVjV6B+xjPxN+XxgpP3lZfMLzgRuaYQwdaEqLLJQTtpqgR8VfOnaMseHYNtUWGdELo9qPZkLMHXZ49OZny4YiBwzYYnEJymN1Z70+dnabnUdaZ2Y+pShZIHo/x9/qi8p6mwfM8tqTtRTDxezMZZzdUJsyjjCUpFMQXpTrtCwMmZ5BTtMrd8Gz4uSZruqwBrXdTgFz7pFueZ albus@github/44895332
+write_files:
+  - container: ntp
+    path: /etc/ntp.conf
+    permissions: "0644"
+    owner: root
+    content: |
+      server 2.ru.pool.ntp.org iburst
+      restrict default nomodify nopeer noquery limited kod
+      restrict 127.0.0.1
+      restrict [::1]
