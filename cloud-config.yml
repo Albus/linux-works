@@ -2,6 +2,17 @@ mounts: []
 hostname: docker
 domainname: lgss.local
 rancher:
+  network:
+    interfaces:
+      "mac=ea:34:71:66:90:12:01":
+        address: 172.68.1.100/24
+        gateway: 172.68.1.1
+        mtu: 1500
+        dhcp: false
+    dns:
+      nameservers:
+      - 8.8.8.8
+      - 8.8.4.4
   console: ubuntu
   environment:
     EXTRA_CMDLINE: /init
