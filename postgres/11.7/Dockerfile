@@ -63,7 +63,7 @@ RUN chmod +x ./scripts/2ndquadrant.sh && ./scripts/2ndquadrant.sh \
 
 WORKDIR /root
 EXPOSE 5432/tcp 22/tcp
-HEALTHCHECK --interval=10s --timeout=3s --retries=3 --start-period=5s CMD ["pg_isready"]
+#HEALTHCHECK --interval=10s --timeout=3s --retries=3 --start-period=5s CMD ["pg_isready"]
 STOPSIGNAL SIGTERM
 
 RUN rm -f /etc/service/sshd/down \
