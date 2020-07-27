@@ -18,10 +18,12 @@ WORKDIR /bd_build
 COPY --from=pg11-dist1c /*.deb ./deb/
 COPY --from=pg11-dist1c /addon/ /root/addon/
 
-ADD http://repo.postgrespro.ru/pgpro-11/keys/apt-repo-add.sh ./scripts/
-ADD https://salsa.debian.org/postgresql/postgresql-common/raw/master/pgdg/apt.postgresql.org.sh ./scripts/
+ADD https://dl.2ndquadrant.com/default/release/get/deb ./scripts/2ndquadrant.sh
+ADD http://repo.postgrespro.ru/pgpro-11/keys/apt-repo-add.sh ./scripts/apt-repo-add.sh
+ADD https://salsa.debian.org/postgresql/postgresql-common/raw/master/pgdg/apt.postgresql.org.sh ./scripts/apt.postgresql.org.sh
 
-RUN chmod +x ./scripts/apt-repo-add.sh && ./scripts/apt-repo-add.sh \
+RUN chmod +x ./scripts/2ndquadrant.sh && ./scripts/2ndquadrant.sh \
+ && chmod +x ./scripts/apt-repo-add.sh && ./scripts/apt-repo-add.sh \
  && chmod +x ./scripts/apt.postgresql.org.sh && ./scripts/apt.postgresql.org.sh -y \
  && apt-get install --no-install-recommends --no-upgrade --arch-only -yqq language-pack-ru tzdata \
  postgresql-client-common postgresql-common libicu55 libllvm6.0 libxml2 libxslt1.1 \
