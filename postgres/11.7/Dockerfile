@@ -58,7 +58,7 @@ RUN chmod +x ./scripts/2ndquadrant.sh && ./scripts/2ndquadrant.sh \
  && dpkg -i deb/postgresql-11_11.*.deb && chmod -x /etc/init.d/postgresql \
  && apt-mark hold `find . -iname "*.deb" -exec dpkg-deb --field {} package \; | xargs` \
  && apt-get install --no-install-recommends --no-upgrade --arch-only -y -qq \
-    man bash-completion ssh-import-id mc htop wget pg-probackup-std-11 \
+    man bash-completion ssh-import-id mc htop wget pg-probackup-std-11 bzip2 iputils-ping \
  && apt-get install --no-install-recommends --no-upgrade --arch-only -f -y -qq
 
 WORKDIR /root
